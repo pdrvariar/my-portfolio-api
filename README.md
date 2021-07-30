@@ -1,2 +1,1 @@
-# my-portfolio-api
-Api para controle financeiro
+[![Build Status](https://www.travis-ci.com/pdrvariar/my-portfolio-api.svg?branch=master)](https://www.travis-ci.com/pdrvariar/my-portfolio-api)
