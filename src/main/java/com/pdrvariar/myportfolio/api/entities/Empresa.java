@@ -15,7 +15,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "empresa")
+@Table(schema = "my_portfolio", name = "empresa")
 public class Empresa implements Serializable {
 
 	private static final long serialVersionUID = 409417365899898099L;

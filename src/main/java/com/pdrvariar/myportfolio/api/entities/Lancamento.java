@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 import com.pdrvariar.myportfolio.api.enums.TipoEnum;
 
 @Entity
-@Table(name = "lancamento")
+@Table(schema = "my_portfolio", name = "lancamento")
 public class Lancamento implements Serializable {
 
 	private static final long serialVersionUID = 2572652845440151081L;

@@ -25,7 +25,7 @@ import javax.persistence.Transient;
 import com.pdrvariar.myportfolio.api.enums.PerfilEnum;
 
 @Entity
-@Table(name = "funcionario")
+@Table(schema = "my_portfolio", name = "funcionario")
 public class Funcionario implements Serializable {
 
 	private static final long serialVersionUID = -3807086309697776307L;

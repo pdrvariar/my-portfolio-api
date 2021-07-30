@@ -1,4 +1,6 @@
-CREATE TABLE empresa (
+CREATE SCHEMA my_portfolio;
+
+CREATE TABLE my_portfolio.empresa (
 	id_empresa bigserial,
 	cnpj varchar(255) NOT NULL,
 	data_atualizacao timestamp NOT NULL,
@@ -7,7 +9,7 @@ CREATE TABLE empresa (
 	CONSTRAINT empresa_pk PRIMARY KEY (id_empresa)
 );
 
-CREATE TABLE funcionario (
+CREATE TABLE my_portfolio.funcionario (
 	id_funcionario bigserial,
 	cpf varchar(255) NOT NULL,
 	data_atualizacao timestamp NOT NULL,
@@ -21,11 +23,11 @@ CREATE TABLE funcionario (
 	valor_hora decimal(19, 2) default null,
 	id_empresa int8 default null,
 	CONSTRAINT fk_funcionario_empresa FOREIGN KEY(id_empresa) 
-	REFERENCES empresa (id_empresa),	
+	REFERENCES my_portfolio.empresa (id_empresa),	
 	CONSTRAINT funcionario_pk PRIMARY KEY (id_funcionario)
 );
 
-CREATE TABLE lancamento (
+CREATE TABLE my_portfolio.lancamento (
 	id_lancamento bigserial,
 	data timestamp NOT NULL,
 	data_atualizacao timestamp NOT NULL,
@@ -35,6 +37,6 @@ CREATE TABLE lancamento (
 	tipo varchar(255) NOT NULL,
 	id_funcionario int8 default null,
 	CONSTRAINT fk_lancamento_funcionario FOREIGN KEY(id_funcionario) 
-	REFERENCES funcionario (id_funcionario),	
+	REFERENCES my_portfolio.funcionario (id_funcionario),	
 	CONSTRAINT lancamento_pk PRIMARY KEY (id_lancamento)
 );
