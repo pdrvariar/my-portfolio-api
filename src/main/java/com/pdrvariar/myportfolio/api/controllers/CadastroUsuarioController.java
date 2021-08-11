@@ -24,7 +24,7 @@ import com.pdrvariar.myportfolio.api.services.UsuarioService;
 import com.pdrvariar.myportfolio.api.utils.PasswordUtils;
 
 @RestController
-@RequestMapping("/api/cadastrar-pf")
+@RequestMapping("/api/cadastrar-usuario")
 @CrossOrigin(origins = "*")
 public class CadastroUsuarioController {
 
