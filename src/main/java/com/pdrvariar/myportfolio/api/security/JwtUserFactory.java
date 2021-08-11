@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import com.pdrvariar.myportfolio.api.entities.Funcionario;
+import com.pdrvariar.myportfolio.api.entities.Usuario;
 import com.pdrvariar.myportfolio.api.enums.PerfilEnum;
 
 public class JwtUserFactory {
@@ -20,9 +20,9 @@ public class JwtUserFactory {
 	 * @param funcionario
 	 * @return JwtUser
 	 */
-	public static JwtUser create(Funcionario funcionario) {
-		return new JwtUser(funcionario.getId(), funcionario.getEmail(), funcionario.getSenha(),
-				mapToGrantedAuthorities(funcionario.getPerfil()));
+	public static JwtUser create(Usuario usuario) {
+		return new JwtUser(usuario.getId(), usuario.getEmail(), usuario.getSenha(),
+				mapToGrantedAuthorities(usuario.getPerfil()));
 	}
 
 	/**

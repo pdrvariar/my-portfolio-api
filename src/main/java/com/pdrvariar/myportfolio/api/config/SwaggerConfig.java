@@ -34,22 +34,19 @@ public class SwaggerConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage("com.pdrvariar.myportfolio.api.controllers"))
-				.paths(PathSelectors.any()).build()
-				.apiInfo(apiInfo());
+				.paths(PathSelectors.any()).build().apiInfo(apiInfo());
 	}
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("My Portfolio API")
-				.description("Documentação da API de acesso aos endpoints do My Portfolio.").version("1.0")
-				.build();
+				.description("Documentação da API de acesso aos endpoints do My Portfolio.").version("1.0").build();
 	}
 
-	/*
 	@Bean
 	public SecurityConfiguration security() {
 		String token;
 		try {
-			UserDetails userDetails = this.userDetailsService.loadUserByUsername("admin@kazale.com");
+			UserDetails userDetails = this.userDetailsService.loadUserByUsername("pdrvariar@gmail.com");
 			token = this.jwtTokenUtil.obterToken(userDetails);
 		} catch (Exception e) {
 			token = "";
@@ -57,6 +54,6 @@ public class SwaggerConfig {
 
 		return new SecurityConfiguration(null, null, null, null, "Bearer " + token, ApiKeyVehicle.HEADER,
 				"Authorization", ",");
-	}*/
+	}
 
 }

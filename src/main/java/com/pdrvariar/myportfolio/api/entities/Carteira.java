@@ -2,10 +2,9 @@ package com.pdrvariar.myportfolio.api.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,32 +14,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.pdrvariar.myportfolio.api.enums.TipoEnum;
 
 @Entity
-@Table(schema = "my_portfolio", name = "lancamento")
-public class Lancamento implements Serializable {
+@Table(schema = "my_portfolio", name = "carteira")
+public class Carteira implements Serializable {
 
-	private static final long serialVersionUID = 2572652845440151081L;
+	private static final long serialVersionUID = -3807086309697776307L;
 
 	private Long id;
-	private Date data;
+	private String nome;
 	private String descricao;
-	private String localizacao;
-	private Date dataCriacao;
+	private Double percentual;
 	private Date dataAtualizacao;
-	private TipoEnum tipo;
-	private Funcionario funcionario;
+	private Date dataCriacao;
+	private Date dataDesativacao;
+	private Portfolio portfolio;
 
-	public Lancamento() {
+	public Carteira() {
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_lancamento", nullable = false)
+	@Column(name = "id_carteira", nullable = false)
 	public Long getId() {
 		return id;
 	}
@@ -49,17 +44,16 @@ public class Lancamento implements Serializable {
 		this.id = id;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data", nullable = false)
-	public Date getData() {
-		return data;
+	@Column(name = "nome", nullable = false)
+	public String getNome() {
+		return nome;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	@Column(name = "descricao", nullable = true)
+	@Column(name = "descricao", nullable = false)
 	public String getDescricao() {
 		return descricao;
 	}
@@ -68,13 +62,13 @@ public class Lancamento implements Serializable {
 		this.descricao = descricao;
 	}
 
-	@Column(name = "localizacao", nullable = true)
-	public String getLocalizacao() {
-		return localizacao;
+	@Column(name = "percentual", nullable = true)
+	public Double getPercentual() {
+		return percentual;
 	}
 
-	public void setLocalizacao(String localizacao) {
-		this.localizacao = localizacao;
+	public void setPercentual(Double percentual) {
+		this.percentual = percentual;
 	}
 
 	@Column(name = "data_criacao", nullable = false)
@@ -95,24 +89,23 @@ public class Lancamento implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "tipo", nullable = false)
-	public TipoEnum getTipo() {
-		return tipo;
+	@Column(name = "data_desativacao", nullable = false)
+	public Date getDataDesativacao() {
+		return dataDesativacao;
 	}
 
-	public void setTipo(TipoEnum tipo) {
-		this.tipo = tipo;
+	public void setDataDesativacao(Date dataDesativacao) {
+		this.dataDesativacao = dataDesativacao;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_funcionario")
-	public Funcionario getFuncionario() {
-		return funcionario;
+	@JoinColumn(name = "id_portfolio")
+	public Portfolio getPortfolio() {
+		return portfolio;
 	}
 
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
 	}
 
 	@PreUpdate
@@ -129,8 +122,8 @@ public class Lancamento implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Lancamento [id=" + id + ", data=" + data + ", descricao=" + descricao + ", localizacao=" + localizacao
-				+ ", dataCriacao=" + dataCriacao + ", dataAtualizacao=" + dataAtualizacao + ", tipo=" + tipo
-				+ ", funcionario=" + funcionario + "]";
+		return "Carteira [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", percentual=" + percentual
+				+ ", dataAtualizacao=" + dataAtualizacao + ", dataCriacao=" + dataCriacao + ", dataDesativacao="
+				+ dataDesativacao + ", portfolio=" + portfolio + "]";
 	}
 }

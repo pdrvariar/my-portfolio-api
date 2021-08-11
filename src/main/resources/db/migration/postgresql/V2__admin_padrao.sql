@@ -1,5 +1,2 @@
-INSERT INTO my_portfolio.empresa (cnpj, data_atualizacao, data_criacao, razao_social) VALUES('82198127000121', now(), now(), 'KAZALE IT');
-
-INSERT INTO my_portfolio.funcionario (cpf, data_atualizacao, data_criacao, email, nome, perfil, qtd_horas_almoco, qtd_horas_trabalho_dia, senha, valor_hora, id_empresa)
-VALUES('16248890935', now(), now(), 'admin@kazale.com', 'ADMIN', 'ROLE_ADMIN', null, null, '$2a$06$xIvBeNRfS65L1N17I7JzgefzxEuLAL0Xk0wFAgIkoNqu9WD6rmp4m', null, (select id_empresa from my_portfolio.empresa where cnpj = '82198127000121'));
-
+INSERT INTO my_portfolio.usuario (cpf, data_atualizacao, data_criacao, email, nome, perfil, senha)
+VALUES('03505379760', now(), now(), 'admin@tempoparainvestir.com', 'ADMIN', 'ROLE_ADMIN', '$2a$06$xIvBeNRfS65L1N17I7JzgefzxEuLAL0Xk0wFAgIkoNqu9WD6rmp4m');

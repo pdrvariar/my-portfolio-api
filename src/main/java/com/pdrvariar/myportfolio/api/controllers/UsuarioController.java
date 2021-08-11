@@ -1,6 +1,5 @@
 package com.pdrvariar.myportfolio.api.controllers;
 
-import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
@@ -19,23 +18,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pdrvariar.myportfolio.api.dtos.FuncionarioDto;
-import com.pdrvariar.myportfolio.api.entities.Funcionario;
+import com.pdrvariar.myportfolio.api.dtos.UsuarioDto;
+import com.pdrvariar.myportfolio.api.entities.Usuario;
 import com.pdrvariar.myportfolio.api.response.Response;
-import com.pdrvariar.myportfolio.api.services.FuncionarioService;
+import com.pdrvariar.myportfolio.api.services.UsuarioService;
 import com.pdrvariar.myportfolio.api.utils.PasswordUtils;
 
 @RestController
 @RequestMapping("/api/funcionarios")
 @CrossOrigin(origins = "*")
-public class FuncionarioController {
+public class UsuarioController {
 
-	private static final Logger log = LoggerFactory.getLogger(FuncionarioController.class);
+	private static final Logger log = LoggerFactory.getLogger(UsuarioController.class);
 
 	@Autowired
-	private FuncionarioService funcionarioService;
+	private UsuarioService funcionarioService;
 
-	public FuncionarioController() {
+	public UsuarioController() {
 	}
 
 	/**
@@ -48,12 +47,12 @@ public class FuncionarioController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Response<FuncionarioDto>> atualizar(@PathVariable("id") Long id,
-			@Valid @RequestBody FuncionarioDto funcionarioDto, BindingResult result) throws NoSuchAlgorithmException {
+	public ResponseEntity<Response<UsuarioDto>> atualizar(@PathVariable("id") Long id,
+			@Valid @RequestBody UsuarioDto funcionarioDto, BindingResult result) throws NoSuchAlgorithmException {
 		log.info("Atualizando funcionário: {}", funcionarioDto.toString());
-		Response<FuncionarioDto> response = new Response<FuncionarioDto>();
+		Response<UsuarioDto> response = new Response<UsuarioDto>();
 
-		Optional<Funcionario> funcionario = this.funcionarioService.buscarPorId(id);
+		Optional<Usuario> funcionario = this.funcionarioService.buscarPorId(id);
 		if (!funcionario.isPresent()) {
 			result.addError(new ObjectError("funcionario", "Funcionário não encontrado."));
 		}
@@ -80,7 +79,7 @@ public class FuncionarioController {
 	 * @param result
 	 * @throws NoSuchAlgorithmException
 	 */
-	private void atualizarDadosFuncionario(Funcionario funcionario, FuncionarioDto funcionarioDto, BindingResult result)
+	private void atualizarDadosFuncionario(Usuario funcionario, UsuarioDto funcionarioDto, BindingResult result)
 			throws NoSuchAlgorithmException {
 		funcionario.setNome(funcionarioDto.getNome());
 
@@ -89,17 +88,6 @@ public class FuncionarioController {
 					.ifPresent(func -> result.addError(new ObjectError("email", "Email já existente.")));
 			funcionario.setEmail(funcionarioDto.getEmail());
 		}
-
-		funcionario.setQtdHorasAlmoco(null);
-		funcionarioDto.getQtdHorasAlmoco()
-				.ifPresent(qtdHorasAlmoco -> funcionario.setQtdHorasAlmoco(Float.valueOf(qtdHorasAlmoco)));
-
-		funcionario.setQtdHorasTrabalhoDia(null);
-		funcionarioDto.getQtdHorasTrabalhoDia()
-				.ifPresent(qtdHorasTrabDia -> funcionario.setQtdHorasTrabalhoDia(Float.valueOf(qtdHorasTrabDia)));
-
-		funcionario.setValorHora(null);
-		funcionarioDto.getValorHora().ifPresent(valorHora -> funcionario.setValorHora(new BigDecimal(valorHora)));
 
 		if (funcionarioDto.getSenha().isPresent()) {
 			funcionario.setSenha(PasswordUtils.gerarBCrypt(funcionarioDto.getSenha().get()));
@@ -112,17 +100,11 @@ public class FuncionarioController {
 	 * @param funcionario
 	 * @return FuncionarioDto
 	 */
-	private FuncionarioDto converterFuncionarioDto(Funcionario funcionario) {
-		FuncionarioDto funcionarioDto = new FuncionarioDto();
+	private UsuarioDto converterFuncionarioDto(Usuario funcionario) {
+		UsuarioDto funcionarioDto = new UsuarioDto();
 		funcionarioDto.setId(funcionario.getId());
 		funcionarioDto.setEmail(funcionario.getEmail());
 		funcionarioDto.setNome(funcionario.getNome());
-		funcionario.getQtdHorasAlmocoOpt().ifPresent(
-				qtdHorasAlmoco -> funcionarioDto.setQtdHorasAlmoco(Optional.of(Float.toString(qtdHorasAlmoco))));
-		funcionario.getQtdHorasTrabalhoDiaOpt().ifPresent(
-				qtdHorasTrabDia -> funcionarioDto.setQtdHorasTrabalhoDia(Optional.of(Float.toString(qtdHorasTrabDia))));
-		funcionario.getValorHoraOpt()
-				.ifPresent(valorHora -> funcionarioDto.setValorHora(Optional.of(valorHora.toString())));
 
 		return funcionarioDto;
 	}

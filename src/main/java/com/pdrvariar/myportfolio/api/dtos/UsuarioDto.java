@@ -1,20 +1,20 @@
 package com.pdrvariar.myportfolio.api.dtos;
 
+import java.util.Optional;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CPF;
 
-public class CadastroPFDto {
+public class UsuarioDto {
 
 	private Long id;
 	private String nome;
 	private String email;
-	private String senha;
-	private String cpf;
+	private Optional<String> senha = Optional.empty();
 
-	public CadastroPFDto() {
+	public UsuarioDto() {
 	}
 
 	public Long getId() {
@@ -46,29 +46,17 @@ public class CadastroPFDto {
 		this.email = email;
 	}
 
-	@NotEmpty(message = "Senha não pode ser vazia.")
-	public String getSenha() {
+	public Optional<String> getSenha() {
 		return senha;
 	}
 
-	public void setSenha(String senha) {
+	public void setSenha(Optional<String> senha) {
 		this.senha = senha;
-	}
-
-	@NotEmpty(message = "CPF não pode ser vazio.")
-	@CPF(message = "CPF inválido")
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 
 	@Override
 	public String toString() {
-		return "CadastroPFDto [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", cpf=" + cpf
-				+ "]";
+		return "UsuarioDto [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + "]";
 	}
 
 }
