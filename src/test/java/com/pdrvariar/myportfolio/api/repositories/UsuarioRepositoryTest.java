@@ -21,59 +21,59 @@ import com.pdrvariar.myportfolio.api.utils.PasswordUtils;
 public class UsuarioRepositoryTest {
 
 	@Autowired
-	private UsuarioRepository funcionarioRepository;
+	private UsuarioRepository usuarioRepository;
 
 	private static final String EMAIL = "email@email.com";
 	private static final String CPF = "24291173474";
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		this.funcionarioRepository.save(obterDadosFuncionario());
+		this.usuarioRepository.save(obterDadosUsuario());
 	}
 
 	@AfterEach
 	public final void tearDown() {
-		this.funcionarioRepository.deleteAll();
+		this.usuarioRepository.deleteAll();
 	}
 
 	@Test
-	public void testBuscarFuncionarioPorEmail() {
-		Usuario funcionario = this.funcionarioRepository.findByEmail(EMAIL);
-		assertEquals(EMAIL, funcionario.getEmail());
+	public void testBuscarUsuarioPorEmail() {
+		Usuario usuario = this.usuarioRepository.findByEmail(EMAIL);
+		assertEquals(EMAIL, usuario.getEmail());
 	}
 
 	@Test
-	public void testBuscarFuncionarioPorCpf() {
-		Usuario funcionario = this.funcionarioRepository.findByCpf(CPF);
-		assertEquals(CPF, funcionario.getCpf());
+	public void testBuscarUsuarioPorCpf() {
+		Usuario usuario = this.usuarioRepository.findByCpf(CPF);
+		assertEquals(CPF, usuario.getCpf());
 	}
 
 	@Test
-	public void testBuscarFuncionarioPorEmailECpf() {
-		Usuario funcionario = this.funcionarioRepository.findByCpfOrEmail(CPF, EMAIL);
-		assertNotNull(funcionario);
+	public void testBuscarUsuarioPorEmailECpf() {
+		Usuario usuario = this.usuarioRepository.findByCpfOrEmail(CPF, EMAIL);
+		assertNotNull(usuario);
 	}
 
 	@Test
-	public void testBuscarFuncionarioPorEmailOuCpfParaEmailInvalido() {
-		Usuario funcionario = this.funcionarioRepository.findByCpfOrEmail(CPF, "email@invalido.com");
-		assertNotNull(funcionario);
+	public void testBuscarUsuarioPorEmailOuCpfParaEmailInvalido() {
+		Usuario usuario = this.usuarioRepository.findByCpfOrEmail(CPF, "email@invalido.com");
+		assertNotNull(usuario);
 	}
 
 	@Test
-	public void testBuscarFuncionarioPorEmailOuCpfParaCpfInvalido() {
-		Usuario funcionario = this.funcionarioRepository.findByCpfOrEmail("12345678901", EMAIL);
-		assertNotNull(funcionario);
+	public void testBuscarUsuarioPorEmailOuCpfParaCpfInvalido() {
+		Usuario usuario = this.usuarioRepository.findByCpfOrEmail("12345678901", EMAIL);
+		assertNotNull(usuario);
 	}
 
-	private Usuario obterDadosFuncionario() throws NoSuchAlgorithmException {
-		Usuario funcionario = new Usuario();
-		funcionario.setNome("Fulano de Tal");
-		funcionario.setPerfil(PerfilEnum.ROLE_USUARIO);
-		funcionario.setSenha(PasswordUtils.gerarBCrypt("123456"));
-		funcionario.setCpf(CPF);
-		funcionario.setEmail(EMAIL);
-		return funcionario;
+	private Usuario obterDadosUsuario() throws NoSuchAlgorithmException {
+		Usuario usuario = new Usuario();
+		usuario.setNome("Fulano de Tal");
+		usuario.setPerfil(PerfilEnum.ROLE_USUARIO);
+		usuario.setSenha(PasswordUtils.gerarBCrypt("123456"));
+		usuario.setCpf(CPF);
+		usuario.setEmail(EMAIL);
+		return usuario;
 	}
 
 }

@@ -17,7 +17,7 @@ public class JwtUserFactory {
 	/**
 	 * Converte e gera um JwtUser com base nos dados de um funcionário.
 	 * 
-	 * @param funcionario
+	 * @param usuario
 	 * @return JwtUser
 	 */
 	public static JwtUser create(Usuario usuario) {

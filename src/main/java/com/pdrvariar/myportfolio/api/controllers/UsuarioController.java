@@ -32,81 +32,81 @@ public class UsuarioController {
 	private static final Logger log = LoggerFactory.getLogger(UsuarioController.class);
 
 	@Autowired
-	private UsuarioService funcionarioService;
+	private UsuarioService usuarioService;
 
 	public UsuarioController() {
 	}
 
 	/**
-	 * Atualiza os dados de um funcionário.
+	 * Atualiza os dados de um usuário.
 	 * 
 	 * @param id
-	 * @param funcionarioDto
+	 * @param usuarioDto
 	 * @param result
-	 * @return ResponseEntity<Response<FuncionarioDto>>
+	 * @return ResponseEntity<Response<UsuarioDto>>
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Response<UsuarioDto>> atualizar(@PathVariable("id") Long id,
-			@Valid @RequestBody UsuarioDto funcionarioDto, BindingResult result) throws NoSuchAlgorithmException {
-		log.info("Atualizando funcionário: {}", funcionarioDto.toString());
+			@Valid @RequestBody UsuarioDto usuarioDto, BindingResult result) throws NoSuchAlgorithmException {
+		log.info("Atualizando usuário: {}", usuarioDto.toString());
 		Response<UsuarioDto> response = new Response<UsuarioDto>();
 
-		Optional<Usuario> funcionario = this.funcionarioService.buscarPorId(id);
-		if (!funcionario.isPresent()) {
-			result.addError(new ObjectError("funcionario", "Funcionário não encontrado."));
+		Optional<Usuario> usuario = this.usuarioService.buscarPorId(id);
+		if (!usuario.isPresent()) {
+			result.addError(new ObjectError("usuario", "Usuário não encontrado."));
 		}
 
-		this.atualizarDadosFuncionario(funcionario.get(), funcionarioDto, result);
+		this.atualizarDadosUsuario(usuario.get(), usuarioDto, result);
 
 		if (result.hasErrors()) {
-			log.error("Erro validando funcionário: {}", result.getAllErrors());
+			log.error("Erro validando usuário: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.funcionarioService.persistir(funcionario.get());
-		response.setData(this.converterFuncionarioDto(funcionario.get()));
+		this.usuarioService.persistir(usuario.get());
+		response.setData(this.converterUsuarioDto(usuario.get()));
 
 		return ResponseEntity.ok(response);
 	}
 
 	/**
-	 * Atualiza os dados do funcionário com base nos dados encontrados no DTO.
+	 * Atualiza os dados do usuário com base nos dados encontrados no DTO.
 	 * 
-	 * @param funcionario
-	 * @param funcionarioDto
+	 * @param usuario
+	 * @param usuarioDto
 	 * @param result
 	 * @throws NoSuchAlgorithmException
 	 */
-	private void atualizarDadosFuncionario(Usuario funcionario, UsuarioDto funcionarioDto, BindingResult result)
+	private void atualizarDadosUsuario(Usuario usuario, UsuarioDto usuarioDto, BindingResult result)
 			throws NoSuchAlgorithmException {
-		funcionario.setNome(funcionarioDto.getNome());
+		usuario.setNome(usuarioDto.getNome());
 
-		if (!funcionario.getEmail().equals(funcionarioDto.getEmail())) {
-			this.funcionarioService.buscarPorEmail(funcionarioDto.getEmail())
+		if (!usuario.getEmail().equals(usuarioDto.getEmail())) {
+			this.usuarioService.buscarPorEmail(usuarioDto.getEmail())
 					.ifPresent(func -> result.addError(new ObjectError("email", "Email já existente.")));
-			funcionario.setEmail(funcionarioDto.getEmail());
+			usuario.setEmail(usuarioDto.getEmail());
 		}
 
-		if (funcionarioDto.getSenha().isPresent()) {
-			funcionario.setSenha(PasswordUtils.gerarBCrypt(funcionarioDto.getSenha().get()));
+		if (usuarioDto.getSenha().isPresent()) {
+			usuario.setSenha(PasswordUtils.gerarBCrypt(usuarioDto.getSenha().get()));
 		}
 	}
 
 	/**
-	 * Retorna um DTO com os dados de um funcionário.
+	 * Retorna um DTO com os dados de um usuário.
 	 * 
-	 * @param funcionario
-	 * @return FuncionarioDto
+	 * @param usuario
+	 * @return UsuarioDto
 	 */
-	private UsuarioDto converterFuncionarioDto(Usuario funcionario) {
-		UsuarioDto funcionarioDto = new UsuarioDto();
-		funcionarioDto.setId(funcionario.getId());
-		funcionarioDto.setEmail(funcionario.getEmail());
-		funcionarioDto.setNome(funcionario.getNome());
+	private UsuarioDto converterUsuarioDto(Usuario usuario) {
+		UsuarioDto usuarioDto = new UsuarioDto();
+		usuarioDto.setId(usuario.getId());
+		usuarioDto.setEmail(usuario.getEmail());
+		usuarioDto.setNome(usuario.getNome());
 
-		return funcionarioDto;
+		return usuarioDto;
 	}
 
 }

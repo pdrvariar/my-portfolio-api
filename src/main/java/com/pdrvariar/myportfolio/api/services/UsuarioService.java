@@ -14,19 +14,19 @@ public interface UsuarioService {
 
 	/**
 	 * @param cpf
-	 * @return Optional<Funcionario>
+	 * @return Optional<Usuario>
 	 */
 	Optional<Usuario> buscarPorCpf(String cpf);
 
 	/**
 	 * @param email
-	 * @return Optional<Funcionario>
+	 * @return Optional<Usuario>
 	 */
 	Optional<Usuario> buscarPorEmail(String email);
 
 	/**
 	 * @param id
-	 * @return Optional<Funcionario>
+	 * @return Optional<Usuario>
 	 */
 	Optional<Usuario> buscarPorId(Long id);
 }

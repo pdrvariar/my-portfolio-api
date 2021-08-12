@@ -51,7 +51,7 @@ public class CadastroUsuarioController {
 		Response<CadastroPFDto> response = new Response<CadastroPFDto>();
 
 		validarDadosExistentes(cadastroPFDto, result);
-		Usuario usuario = this.converterDtoParaFuncionario(cadastroPFDto, result);
+		Usuario usuario = this.converterDtoParaUsuario(cadastroPFDto, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro validando dados de cadastro do usuário: {}", result.getAllErrors());
@@ -86,10 +86,10 @@ public class CadastroUsuarioController {
 	 * 
 	 * @param cadastroPFDto
 	 * @param result
-	 * @return Funcionario
+	 * @return Usuario
 	 * @throws NoSuchAlgorithmException
 	 */
-	private Usuario converterDtoParaFuncionario(CadastroPFDto cadastroPFDto, BindingResult result)
+	private Usuario converterDtoParaUsuario(CadastroPFDto cadastroPFDto, BindingResult result)
 			throws NoSuchAlgorithmException {
 		Usuario usuario = new Usuario();
 		usuario.setNome(cadastroPFDto.getNome());

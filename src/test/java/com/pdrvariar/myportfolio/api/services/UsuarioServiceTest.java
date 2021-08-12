@@ -22,44 +22,44 @@ import com.pdrvariar.myportfolio.api.repositories.UsuarioRepository;
 public class UsuarioServiceTest {
 
 	@MockBean
-	private UsuarioRepository funcionarioRepository;
+	private UsuarioRepository usuarioRepository;
 
 	@Autowired
-	private UsuarioService funcionarioService;
+	private UsuarioService usuarioService;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		BDDMockito.given(this.funcionarioRepository.save(Mockito.any(Usuario.class))).willReturn(new Usuario());
-		BDDMockito.given(this.funcionarioRepository.findById(Mockito.anyLong())).willReturn(Optional.ofNullable(new Usuario()));
-		BDDMockito.given(this.funcionarioRepository.findByEmail(Mockito.anyString())).willReturn(new Usuario());
-		BDDMockito.given(this.funcionarioRepository.findByCpf(Mockito.anyString())).willReturn(new Usuario());
+		BDDMockito.given(this.usuarioRepository.save(Mockito.any(Usuario.class))).willReturn(new Usuario());
+		BDDMockito.given(this.usuarioRepository.findById(Mockito.anyLong())).willReturn(Optional.ofNullable(new Usuario()));
+		BDDMockito.given(this.usuarioRepository.findByEmail(Mockito.anyString())).willReturn(new Usuario());
+		BDDMockito.given(this.usuarioRepository.findByCpf(Mockito.anyString())).willReturn(new Usuario());
 	}
 
 	@Test
-	public void testPersistirFuncionario() {
-		Usuario funcionario = this.funcionarioService.persistir(new Usuario());
+	public void testPersistirUsuario() {
+		Usuario usuario = this.usuarioService.persistir(new Usuario());
 
-		assertNotNull(funcionario);
+		assertNotNull(usuario);
 	}
 
 	@Test
-	public void testBuscarFuncionarioPorId() {
-		Optional<Usuario> funcionario = this.funcionarioService.buscarPorId(1L);
+	public void testBuscarUsuarioPorId() {
+		Optional<Usuario> usuario = this.usuarioService.buscarPorId(1L);
 
-		assertTrue(funcionario.isPresent());
+		assertTrue(usuario.isPresent());
 	}
 
 	@Test
-	public void testBuscarFuncionarioPorEmail() {
-		Optional<Usuario> funcionario = this.funcionarioService.buscarPorEmail("email@email.com");
+	public void testBuscarUsuarioPorEmail() {
+		Optional<Usuario> usuario = this.usuarioService.buscarPorEmail("email@email.com");
 
-		assertTrue(funcionario.isPresent());
+		assertTrue(usuario.isPresent());
 	}
 
 	@Test
-	public void testBuscarFuncionarioPorCpf() {
-		Optional<Usuario> funcionario = this.funcionarioService.buscarPorCpf("24291173474");
+	public void testBuscarUsuarioPorCpf() {
+		Optional<Usuario> usuario = this.usuarioService.buscarPorCpf("24291173474");
 
-		assertTrue(funcionario.isPresent());
+		assertTrue(usuario.isPresent());
 	}
 }
