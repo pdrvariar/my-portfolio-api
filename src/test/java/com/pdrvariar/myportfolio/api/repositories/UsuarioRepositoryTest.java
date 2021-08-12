@@ -28,6 +28,7 @@ public class UsuarioRepositoryTest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
+		this.usuarioRepository.deleteAll();
 		this.usuarioRepository.save(obterDadosUsuario());
 	}
 
