@@ -16,7 +16,8 @@ CREATE TABLE my_portfolio.usuario (
 CREATE TABLE my_portfolio.portfolio (
 	id_portfolio bigserial NOT NULL,
 	id_usuario int8 NOT NULL,
-	descricao varchar(100) NOT NULL,
+	nome varchar(100) NOT NULL,
+	descricao varchar(255) NULL,
 	data_atualizacao timestamp NOT NULL,
 	data_criacao timestamp NOT NULL,
 	data_desativacao timestamp NULL,
@@ -29,7 +30,8 @@ CREATE TABLE my_portfolio.portfolio (
 CREATE TABLE my_portfolio.carteira (
 	id_carteira bigserial NOT NULL,
 	id_portfolio int8 NOT null,
-	descricao varchar(100) NOT NULL,
+	nome varchar(100) NOT NULL,
+	descricao varchar(255) NULL,
 	data_atualizacao timestamp NOT NULL,
 	percentual double precision NULL,
 	data_criacao timestamp NOT NULL,

@@ -52,7 +52,7 @@ public class Portfolio implements Serializable {
 		this.nome = nome;
 	}
 
-	@Column(name = "descricao", nullable = false)
+	@Column(name = "descricao", nullable = true)
 	public String getDescricao() {
 		return descricao;
 	}
@@ -79,7 +79,7 @@ public class Portfolio implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	@Column(name = "data_desativacao", nullable = false)
+	@Column(name = "data_desativacao", nullable = true)
 	public Date getDataDesativacao() {
 		return dataDesativacao;
 	}

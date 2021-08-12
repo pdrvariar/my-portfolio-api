@@ -2,7 +2,9 @@ package com.pdrvariar.myportfolio.api.services;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -14,7 +16,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.pdrvariar.myportfolio.api.entities.Usuario;
 import com.pdrvariar.myportfolio.api.repositories.UsuarioRepository;
-import com.pdrvariar.myportfolio.api.services.UsuarioService;
 
 @SpringBootTest
 @ActiveProfiles("test")

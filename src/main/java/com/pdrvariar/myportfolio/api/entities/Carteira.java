@@ -53,7 +53,7 @@ public class Carteira implements Serializable {
 		this.nome = nome;
 	}
 
-	@Column(name = "descricao", nullable = false)
+	@Column(name = "descricao", nullable = true)
 	public String getDescricao() {
 		return descricao;
 	}
