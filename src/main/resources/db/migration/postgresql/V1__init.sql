@@ -1,5 +1,3 @@
-CREATE SCHEMA my_portfolio;
-
 CREATE TABLE my_portfolio.usuario (
 	id_usuario bigserial NOT NULL,
 	nome varchar(255) NOT NULL,
